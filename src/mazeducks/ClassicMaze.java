@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class TestMaze extends JFrame{
+public class ClassicMaze extends JFrame{
 
     public static int rows = 40; 
     public static int columns = 40;
@@ -24,7 +24,7 @@ public class TestMaze extends JFrame{
     public static int endLevelLocx;
     Player p;
     
-    public TestMaze(String str, int b){
+    public ClassicMaze(String str, int b){
         rows = b;
         columns = b;
         loadMap(str,b);

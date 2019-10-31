@@ -6,7 +6,7 @@
 package mazeducks;
 
 import java.util.ArrayList;
-import static mazeducks.TestMaze.map;
+import static mazeducks.ClassicMaze.map;
 
 public class MapGenerate {
     public static void loadMap(String str, int a){

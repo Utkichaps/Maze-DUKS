@@ -116,7 +116,7 @@ public class Classic extends javax.swing.JFrame {
         // TODO add your handling code here:
         dif = (Integer)jSpinner1.getValue();
         System.out.println(dif);
-        new TestMaze("test",dif);
+        new ClassicMaze("test",dif);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
