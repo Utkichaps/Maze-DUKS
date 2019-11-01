@@ -47,6 +47,11 @@ public class Level extends javax.swing.JFrame {
 
         Arcade.setText("Arcade");
         Arcade.setBorder(null);
+        Arcade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ArcadeActionPerformed(evt);
+            }
+        });
         getContentPane().add(Arcade);
         Arcade.setBounds(250, 140, 120, 50);
 
@@ -72,6 +77,12 @@ public class Level extends javax.swing.JFrame {
         C.setVisible(true);       
         this.setVisible(false);        
     }//GEN-LAST:event_ClassicActionPerformed
+
+    private void ArcadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArcadeActionPerformed
+        Arcade A = new Arcade();
+        A.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ArcadeActionPerformed
 
     /**
      * @param args the command line arguments

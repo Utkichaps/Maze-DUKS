@@ -1,6 +1,7 @@
 package mazeducks;
 
 import java.util.*;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,7 +33,7 @@ public class ClassicMaze extends JFrame{
         this.setSize((columns*panelSize)+50, (rows*panelSize)+70); //width , height
         this.setTitle("Classic Maze");
         this.setLayout(null);
-        
+       
         this.addKeyListener(new KeyListener(){
 
 			@Override
@@ -56,7 +57,7 @@ public class ClassicMaze extends JFrame{
 					p.moveRight();
 				}
 				
-				if(p.x == endLevelLoc && p.y == endLevelLocx){
+				if(p.x == endLevelLocx && p.y == endLevelLoc){
 					JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!", "End Game", JOptionPane.INFORMATION_MESSAGE);
 					dispose();
 					new MainMenu();
@@ -112,8 +113,8 @@ public class ClassicMaze extends JFrame{
                 {
                     tile.setBackground(Color.RED);
                     tile.setWall(false);
-                    endLevelLocx = y;
-                    endLevelLoc = x; 
+                    endLevelLocx = x;
+                    endLevelLoc = y; 
                 }
                 else
                 {
