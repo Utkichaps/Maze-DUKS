@@ -51,6 +51,11 @@ public class MainMenu extends javax.swing.JFrame {
         Exit.setForeground(new java.awt.Color(0, 0, 51));
         Exit.setText("EXIT");
         Exit.setBorder(null);
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
         getContentPane().add(Exit);
         Exit.setBounds(510, 490, 160, 80);
 
@@ -73,6 +78,11 @@ public class MainMenu extends javax.swing.JFrame {
         l.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_PlayActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_ExitActionPerformed
 
     /**
      * @param args the command line arguments

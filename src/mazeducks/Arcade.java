@@ -42,7 +42,7 @@ public class Arcade extends javax.swing.JFrame {
         jLabel1.setText("Arcade");
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("[Add Classic Gamemode description here]");
+        jLabel2.setText("[Add Arcade Gamemode description here]");
         jLabel2.setToolTipText("");
 
         jButton1.setText("Start");
@@ -67,7 +67,7 @@ public class Arcade extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(196, 196, 196)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
