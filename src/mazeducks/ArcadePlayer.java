@@ -34,7 +34,7 @@ public class ArcadePlayer extends JPanel{
     }
 
     public void moveDown() {
-    	if(y < ArcadeMaze.rows-1 && (ArcadeMaze.map[x][y+1] == 1 || ArcadeMaze.map[x][y+1] == 3 || ArcadeMaze.map[x][y+1] == 2 || ArcadeMaze.map[x][y+1] == 5)){
+    	if(y < ArcadeMaze.rows-1 && (ArcadeMaze.map[x][y+1] == 1 || ArcadeMaze.map[x][y+1] == 3 || ArcadeMaze.map[x][y+1] == 2 || ArcadeMaze.map[x][y+1] == 4 || ArcadeMaze.map[x][y+1] == 5)){
 	    	this.setLocation(this.getX(), this.getY()+25);
 	    	y++;
     	}

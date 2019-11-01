@@ -126,7 +126,7 @@ public class ClassicMaze extends JFrame{
                 tile.setVisible(true);
                 this.add(tile);
             }
-        }
+        }           
         this.setVisible(true);
     }   
     
