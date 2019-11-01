@@ -22,15 +22,15 @@ public class ClassicMaze extends JFrame{
     public static int map[][] = new int[columns][rows];
     public static int endLevelLoc;
     public static int endLevelLocx;
-    Player p;
+    ClassicPlayer p;
     
     public ClassicMaze(String str, int b){
         rows = b;
         columns = b;
-        loadMap(str,b);
+        map = loadMap(str,b);
         this.setResizable(false);
-        this.setSize((columns*panelSize)+50, (rows*panelSize)+70);
-        this.setTitle("Maze");
+        this.setSize((columns*panelSize)+50, (rows*panelSize)+70); //width , height
+        this.setTitle("Classic Maze");
         this.setLayout(null);
         
         this.addKeyListener(new KeyListener(){
@@ -87,7 +87,7 @@ public class ClassicMaze extends JFrame{
         this.setLocationRelativeTo(null);
         
         //Create player
-    	p = new Player();
+    	p = new ClassicPlayer();
     	p.setVisible(true);
     	this.add(p);
     	

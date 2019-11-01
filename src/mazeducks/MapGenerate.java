@@ -6,14 +6,14 @@
 package mazeducks;
 
 import java.util.ArrayList;
-import static mazeducks.ClassicMaze.map;
+
 
 public class MapGenerate {
-    public static void loadMap(String str, int a){
+    public static int[][] loadMap(String str, int a){
         
   // dimensions of generated maze
   int r = a, c = a;
-
+  int temp[][] = new int[a][a];
   // build maze and initialize with only walls
   StringBuilder s = new StringBuilder(c);
   for (int x = 0; x < c; x++)
@@ -86,13 +86,13 @@ public class MapGenerate {
   for (int i = 0; i < r; i++) {
    for (int j = 0; j < c; j++)
    {
-    map[i][j] = Character.getNumericValue(maz[i][j]);
+    temp[i][j] = Character.getNumericValue(maz[i][j]);
     //System.out.print(map[i][j]);
   }
    //System.out.println();
   }
   
-  
+  return temp;
   
 }
     

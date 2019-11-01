@@ -4,10 +4,10 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 
-public class Player extends JPanel{
+public class ClassicPlayer extends JPanel{
 	int x, y;
 	
-    public Player() {
+    public ClassicPlayer() {
     	this.setBackground(Color.getHSBColor(0.3f, 0.3f, 1));
     	this.setSize(ClassicMaze.panelSize, ClassicMaze.panelSize);
     }
