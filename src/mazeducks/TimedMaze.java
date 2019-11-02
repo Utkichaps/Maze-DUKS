@@ -1,10 +1,5 @@
 package mazeducks;
 
-import mazeducks.ClassicTunnel.ClassicTunnelRight;
-import mazeducks.ClassicTunnel.ClassicTunnelLeft;
-import mazeducks.ClassicTunnel.ClassicTunnelDown;
-import mazeducks.ClassicTunnel.ClassicTunnelUp;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,7 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
-public class ClassicMaze extends JFrame{
+public class TimedMaze extends JFrame{
 
     public static int rows = 40; 
     public static int columns = 40;
@@ -35,30 +30,26 @@ public class ClassicMaze extends JFrame{
     public static int map[][] = new int[columns][rows];
     public static int endLevelLoc;
     public static int endLevelLocx;
-    ClassicPlayer p;
-    public static ClassicTunnelRight tr;
-    public static ClassicTunnelLeft tl;
-    public static ClassicTunnelDown td;
-    public static ClassicTunnelUp tu;
+    public static int count;
+    TimedPlayer p;
     public JLabel clk;
-    public ClassicTimer clock = new ClassicTimer();
-    public static boolean leftcheck;
-    public static boolean upcheck;
+    public TimedTimer clock = new TimedTimer();
     public static int min,sec,hour;
-    
-    public ClassicMaze(int tunneltog, int b){
+    public TimedMaze(int timelimit)
+    {
+        min = timelimit;
+        sec = 0;
+        hour = 0; 
+        count = 0;
+    }
+    public TimedMaze(String str, int b){
         this.setFocusable(true);
         rows = b;
-        columns = b;
-        min = 0;
-        sec = 0;
-        hour = 0;
-        leftcheck = true;
-        upcheck = true;
+        columns = b;               
         map = loadMap(b);        
         this.setResizable(false);
         this.setSize((columns*panelSize)+50+150, (rows*panelSize)+70); //width , height
-        this.setTitle("Classic Maze");
+        this.setTitle("Timed Maze");
         this.setLayout(null);
         
         //Maze external UI:
@@ -80,14 +71,14 @@ public class ClassicMaze extends JFrame{
                 if(opt == JOptionPane.YES_OPTION)
                 {                    
                     clock.stop();
-                    Classic C = new Classic();
+                    Timed C = new Timed();
                     C.setVisible(true);
-                    ClassicMaze.this.dispose();
+                    TimedMaze.this.dispose();
                 } 
                 else
                 {
                     qbutton.setFocusable(false);                    
-                    ClassicMaze.this.setFocusable(true);                    
+                    TimedMaze.this.setFocusable(true);                    
                 }
             }  
          });  
@@ -100,10 +91,18 @@ public class ClassicMaze extends JFrame{
         timelabel.setFont(timelabel.getFont().deriveFont (22.0f));
         jp.add(timelabel);
         
-        clk = new JLabel("0:0:0");
+        clk = new JLabel(hour+":"+min+":"+sec);
         clk.setVisible(true);
+        clk.setPreferredSize(new Dimension(120,30));
+        clk.setHorizontalAlignment(JLabel.CENTER);
         clk.setFont(clk.getFont().deriveFont (22.0f));
         jp.add(clk);
+        
+        JLabel cnt = new JLabel("Number: "+count);
+        cnt.setHorizontalAlignment(JLabel.CENTER);
+        cnt.setFont(timelabel.getFont().deriveFont (18.0f));
+        cnt.setVisible(true);
+        jp.add(cnt);
         
         this.addKeyListener(new KeyListener(){
 
@@ -125,27 +124,22 @@ public class ClassicMaze extends JFrame{
 				}
 				if(key == KeyEvent.VK_RIGHT){
 					p.moveRight();                                        
-				}
-                                if(p.x == 3 && leftcheck)
-                                {
-                                    tl.setLocation(23,25);
-                                    ClassicMaze.this.add(tl,1);
-                                    leftcheck = false;
-                                }
-                                if(p.y == 3 && upcheck)
-                                {
-                                    tu.setLocation(23,25);
-                                    ClassicMaze.this.add(tu,1);
-                                    upcheck = false;
-                                }
+				}                               
 				
 				if(p.x == endLevelLocx && p.y == endLevelLoc){
                                         clock.stop();
-					JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!\nTime taken: "+hour+":"+min+":"+sec, "End Game", JOptionPane.INFORMATION_MESSAGE);                                        
-					dispose();					
-                                        Classic C = new Classic();
-                                        C.setVisible(true);
+                                        count+=1;
+                                        new TimedMaze("test",b+5);					
+					dispose();					                                       
 				}
+                                if(hour == 0 && min == 0 && sec == 0)
+                                {
+                                        clock.stop();
+					JOptionPane.showMessageDialog(null, "Number of mazes solved: "+count, "End Game", JOptionPane.INFORMATION_MESSAGE);                                        
+					dispose();					
+                                        Timed C = new Timed();
+                                        C.setVisible(true);
+                                }
 			}
 
 			@Override
@@ -163,8 +157,7 @@ public class ClassicMaze extends JFrame{
         });
         
         this.addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent e) {
-                //System.out.println((columns*panelSize)+50+"-"+((rows*panelSize)+70));
+            public void windowClosing(WindowEvent e) {                //System.out.println((columns*panelSize)+50+"-"+((rows*panelSize)+70));
                 System.exit(0);
             }
         });        
@@ -172,29 +165,10 @@ public class ClassicMaze extends JFrame{
         
         
         //Create player & opt.tunnelvision
-    	p = new ClassicPlayer();
-        tr = new ClassicTunnelRight();
-        tl = new ClassicTunnelLeft();
-        td = new ClassicTunnelDown();
-        tu = new ClassicTunnelUp();
+    	p = new TimedPlayer();
     	p.setVisible(true);        
-        if(tunneltog == 1)  //toggle tunnel vision button
-        {
-            tr.setVisible(true);
-            tl.setVisible(true);
-            td.setVisible(true);
-            tu.setVisible(true);
-        }
-        else
-        {
-            tr.setVisible(false);
-            tl.setVisible(false);
-            td.setVisible(false);
-            tu.setVisible(false);
-        }
-    	this.add(p);
-        this.add(tr);       
-        this.add(td);        
+
+    	this.add(p);        
     	
         //Color map        
         for(int y = 0; y < columns; y++){
@@ -211,9 +185,7 @@ public class ClassicMaze extends JFrame{
                     tile.setBackground(Color.WHITE);
                     tile.setWall(false);
                     p.setLocation((x*panelSize)+23, (y*panelSize)+25);
-                    p.y = y;
-                    tr.setLocation(((x+4)*panelSize)+23, (y*panelSize)+25);  
-                    td.setLocation((x*panelSize)+23,((y+5)*panelSize));
+                    p.y = y;                    
                 }
                 else if(map[x][y] == 3)
                 {
@@ -225,8 +197,7 @@ public class ClassicMaze extends JFrame{
                 else
                 {
                     tile.setBackground(Color.WHITE);
-                    tile.setWall(false);
-                    
+                    tile.setWall(false);                    
                 }
                 
                 tile.setVisible(true);

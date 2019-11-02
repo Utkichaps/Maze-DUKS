@@ -98,12 +98,12 @@ public class ArcadeMaze extends JFrame{
         timelabel.setVisible(true);
         timelabel.setPreferredSize(new Dimension(120,25));
         timelabel.setHorizontalAlignment(JLabel.CENTER);
-        timelabel.setFont(scorelabel.getFont().deriveFont (22.0f));
+        timelabel.setFont(timelabel.getFont().deriveFont (22.0f));
         jp.add(timelabel);
         
         clk = new JLabel("0:0:0");
         clk.setVisible(true);
-        clk.setFont(scorelabel.getFont().deriveFont (22.0f));
+        clk.setFont(clk.getFont().deriveFont (22.0f));
         jp.add(clk);
         
         
@@ -323,14 +323,7 @@ public class ArcadeMaze extends JFrame{
             }
         },0,1000);
         
-    }   
-    /*public class A extends TimerTask
-    {
-        public void run()
-        {
-            clk.setText(hour+":"+min+":"+sec);
-        }
-    }*/
+    }      
     
 }
 

@@ -52,6 +52,11 @@ public class Level extends javax.swing.JFrame {
 
         jButton1.setText("Timed");
         jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
         jButton1.setBounds(470, 140, 90, 50);
 
@@ -85,13 +90,13 @@ public class Level extends javax.swing.JFrame {
     private void ClassicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClassicActionPerformed
         Classic C = new Classic();
         C.setVisible(true);       
-        this.setVisible(false);        
+        this.dispose();       
     }//GEN-LAST:event_ClassicActionPerformed
 
     private void ArcadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArcadeActionPerformed
         Arcade A = new Arcade();
         A.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_ArcadeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -100,6 +105,13 @@ public class Level extends javax.swing.JFrame {
         M.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Timed T = new Timed();
+        T.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
