@@ -31,6 +31,7 @@ public class Level extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         Arcade = new javax.swing.JButton();
         Classic = new javax.swing.JButton();
@@ -39,6 +40,15 @@ public class Level extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(620, 360));
         getContentPane().setLayout(null);
+
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(20, 20, 59, 32);
 
         jButton1.setText("Timed");
         jButton1.setBorder(null);
@@ -84,6 +94,13 @@ public class Level extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_ArcadeActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        MainMenu M = new MainMenu();
+        M.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -123,6 +140,7 @@ public class Level extends javax.swing.JFrame {
     private javax.swing.JButton Arcade;
     private javax.swing.JButton Classic;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

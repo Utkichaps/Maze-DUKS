@@ -82,6 +82,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
     /**

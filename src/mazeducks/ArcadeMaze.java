@@ -2,8 +2,10 @@ package mazeducks;
 
 import java.util.*;
 import javax.swing.*;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -31,16 +33,54 @@ public class ArcadeMaze extends JFrame{
     ArcadePlayer p;
     
     public ArcadeMaze(String str, int b){
+        this.setFocusable(true);
         rows = b;
         columns = b;
         score = 0;
         getKey = false;
         map = loadMap(b);
         this.setResizable(false);
-        this.setSize((columns*panelSize)+50, (rows*panelSize)+70); //width , height
+        this.setSize((columns*panelSize)+50+150, (rows*panelSize)+70); //width , height
         this.setTitle("Arcade Maze");
         this.setLayout(null);
-       
+        
+        //Maze External UI
+       JPanel jp = new JPanel();
+        jp.setLocation((columns*panelSize)+50,25);
+        jp.setSize(120,(rows*panelSize));
+        jp.setBackground(Color.red);
+        jp.setVisible(true);
+        this.add(jp);
+        JButton qbutton = new JButton("Quit");
+        qbutton.setPreferredSize(new Dimension(120,50));
+        qbutton.setVisible(true);        
+         qbutton.addActionListener(new ActionListener()
+         {  
+            public void actionPerformed(ActionEvent e)
+            { 
+                int opt;
+                opt = JOptionPane.showConfirmDialog(null,"Are you sure you want to quit?");
+                if(opt == JOptionPane.YES_OPTION)
+                {                    
+                    Arcade A = new Arcade();
+                    A.setVisible(true);
+                    ArcadeMaze.this.dispose();
+                } 
+                else
+                {
+                    qbutton.setFocusable(false);                    
+                    ArcadeMaze.this.setFocusable(true);                    
+                }
+            }  
+         });  
+        jp.add(qbutton); 
+        /*JLabel scorelabel = new JLabel("Score:");
+        scorelabel.setLocation(0,75);
+        scorelabel.setVisible(true);
+        jp.add(scorelabel,1);*/
+        
+        
+        
         this.addKeyListener(new KeyListener(){
 
 			@Override
@@ -67,7 +107,8 @@ public class ArcadeMaze extends JFrame{
 				if(p.x == endLevelLocx && p.y == endLevelLoc && getKey){
 					JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!", "End Game", JOptionPane.INFORMATION_MESSAGE);
 					dispose();
-					new MainMenu();
+					Arcade A = new Arcade();
+                                        A.setVisible(true);
 				}
                                 if(p.x == endLevelLocx && p.y == endLevelLoc && !getKey)
                                 {
@@ -83,7 +124,7 @@ public class ArcadeMaze extends JFrame{
                                     P.setLocation((keyLocx*panelSize)+23, (keyLocy*panelSize)+25);
                                     P.setBackground(Color.WHITE);
                                     P.setVisible(true);                                         
-                                    ArcadeMaze.this.add(P, 1);                                                                                                            
+                                    ArcadeMaze.this.add(P, 3);                                                                                                            
                                 }
                                 for(int i = 0; i < score_no; i++)
                                 {
@@ -96,7 +137,7 @@ public class ArcadeMaze extends JFrame{
                                         P.setLocation((SC[i].x*panelSize)+23, (SC[i].y*panelSize)+25);
                                         P.setBackground(Color.WHITE);
                                         P.setVisible(true);                                         
-                                        ArcadeMaze.this.add(P, 1);
+                                        ArcadeMaze.this.add(P, 3);
                                         System.out.println(score);//
                                     }
                                 }
@@ -128,7 +169,7 @@ public class ArcadeMaze extends JFrame{
         //Create player
     	p = new ArcadePlayer();
     	p.setVisible(true);
-    	this.add(p);
+    	this.add(p,1);
         
         
         double tempy,tempx;     

@@ -7,6 +7,8 @@ import mazeducks.ClassicTunnel.ClassicTunnelUp;
 import java.util.*;
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -33,18 +35,52 @@ public class ClassicMaze extends JFrame{
     public static ClassicTunnelLeft tl;
     public static ClassicTunnelDown td;
     public static ClassicTunnelUp tu;
-    public static boolean leftcheck = true;
-    public static boolean upcheck = true;
+    public static boolean leftcheck;
+    public static boolean upcheck;
     
     public ClassicMaze(int tunneltog, int b){
+        this.setFocusable(true);
         rows = b;
         columns = b;
+        leftcheck = true;
+        upcheck = true;
         map = loadMap(b);        
         this.setResizable(false);
-        this.setSize((columns*panelSize)+50, (rows*panelSize)+70); //width , height
+        this.setSize((columns*panelSize)+50+150, (rows*panelSize)+70); //width , height
         this.setTitle("Classic Maze");
         this.setLayout(null);
-       
+        
+        //Maze external UI:
+        JPanel jp = new JPanel();
+        jp.setLocation((columns*panelSize)+50,25);
+        jp.setSize(120,(rows*panelSize));
+        jp.setBackground(Color.red);
+        jp.setVisible(true);
+        this.add(jp);
+        JButton qbutton = new JButton("Quit");
+        qbutton.setPreferredSize(new Dimension(120,50));
+        qbutton.setVisible(true);        
+         qbutton.addActionListener(new ActionListener()
+         {  
+            public void actionPerformed(ActionEvent e)
+            { 
+                int opt;
+                opt = JOptionPane.showConfirmDialog(null,"Are you sure you want to quit?");
+                if(opt == JOptionPane.YES_OPTION)
+                {                    
+                    Classic C = new Classic();
+                    C.setVisible(true);
+                    ClassicMaze.this.dispose();
+                } 
+                else
+                {
+                    qbutton.setFocusable(false);                    
+                    ClassicMaze.this.setFocusable(true);                    
+                }
+            }  
+         });  
+        jp.add(qbutton);        
+        
         this.addKeyListener(new KeyListener(){
 
 			@Override
@@ -80,9 +116,10 @@ public class ClassicMaze extends JFrame{
                                 }
 				
 				if(p.x == endLevelLocx && p.y == endLevelLoc){
-					JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!", "End Game", JOptionPane.INFORMATION_MESSAGE);
-					dispose();
-					new MainMenu();
+					JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!", "End Game", JOptionPane.INFORMATION_MESSAGE);                                        
+					dispose();					
+                                        Classic C = new Classic();
+                                        C.setVisible(true);
 				}
 			}
 
@@ -105,9 +142,9 @@ public class ClassicMaze extends JFrame{
                 //System.out.println((columns*panelSize)+50+"-"+((rows*panelSize)+70));
                 System.exit(0);
             }
-        });
+        });        
+        this.setLocationRelativeTo(null);                
         
-        this.setLocationRelativeTo(null);
         
         //Create player & opt.tunnelvision
     	p = new ClassicPlayer();
@@ -173,7 +210,7 @@ public class ClassicMaze extends JFrame{
             }
             //System.out.println();            
         }           
-        //System.out.println(map[0][0]);
+        //System.out.println(map[0][0]);                                               
         this.setVisible(true);
     }   
     
