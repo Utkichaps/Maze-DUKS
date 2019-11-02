@@ -13,6 +13,9 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static mazeducks.MapGenerate.loadMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,14 +31,23 @@ public class ArcadeMaze extends JFrame{
     public static int endLevelLocx,keyLocx;
     public static int score, score_no = 6;
     public static boolean getKey;
+    public boolean end;
+    public JLabel clk;
+    public ArcadeTimer clock = new ArcadeTimer();
+    public static int min,sec,hour;
+    
     public static ScoreTile SC[] = new ScoreTile[score_no]; 
     
     ArcadePlayer p;
     
     public ArcadeMaze(String str, int b){
         this.setFocusable(true);
+        end = false;
         rows = b;
         columns = b;
+        min = 0;
+        sec = 0;
+        hour = 0;
         score = 0;
         getKey = false;
         map = loadMap(b);
@@ -52,7 +64,7 @@ public class ArcadeMaze extends JFrame{
         jp.setVisible(true);
         this.add(jp);
         JButton qbutton = new JButton("Quit");
-        qbutton.setPreferredSize(new Dimension(120,50));
+        qbutton.setPreferredSize(new Dimension(120,50));        
         qbutton.setVisible(true);        
          qbutton.addActionListener(new ActionListener()
          {  
@@ -65,6 +77,7 @@ public class ArcadeMaze extends JFrame{
                     Arcade A = new Arcade();
                     A.setVisible(true);
                     ArcadeMaze.this.dispose();
+                    clock.stop();
                 } 
                 else
                 {
@@ -74,10 +87,24 @@ public class ArcadeMaze extends JFrame{
             }  
          });  
         jp.add(qbutton); 
-        /*JLabel scorelabel = new JLabel("Score:");
-        scorelabel.setLocation(0,75);
+        JLabel scorelabel = new JLabel("Score: " + score);        
         scorelabel.setVisible(true);
-        jp.add(scorelabel,1);*/
+        scorelabel.setPreferredSize(new Dimension(120,50));
+        scorelabel.setHorizontalAlignment(JLabel.CENTER);
+        scorelabel.setFont(scorelabel.getFont().deriveFont (22.0f));
+        jp.add(scorelabel,1);
+        
+        JLabel timelabel = new JLabel("Time:");
+        timelabel.setVisible(true);
+        timelabel.setPreferredSize(new Dimension(120,25));
+        timelabel.setHorizontalAlignment(JLabel.CENTER);
+        timelabel.setFont(scorelabel.getFont().deriveFont (22.0f));
+        jp.add(timelabel);
+        
+        clk = new JLabel("0:0:0");
+        clk.setVisible(true);
+        clk.setFont(scorelabel.getFont().deriveFont (22.0f));
+        jp.add(clk);
         
         
         
@@ -105,8 +132,9 @@ public class ArcadeMaze extends JFrame{
 				}
 				
 				if(p.x == endLevelLocx && p.y == endLevelLoc && getKey){
-					JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!", "End Game", JOptionPane.INFORMATION_MESSAGE);
-					dispose();
+                                        clock.stop();
+					JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!\nTime taken: "+hour+":"+min+":"+sec+"\nScore: "+score, "End Game", JOptionPane.INFORMATION_MESSAGE);
+					dispose();                                                
 					Arcade A = new Arcade();
                                         A.setVisible(true);
 				}
@@ -118,6 +146,7 @@ public class ArcadeMaze extends JFrame{
                                 {
                                     getKey = true;
                                     score += 15;
+                                    scorelabel.setText("Score: " + score);
                                     System.out.println(score);//
                                     JPanel P = new JPanel();
                                     P.setSize(panelSize,panelSize);
@@ -131,6 +160,7 @@ public class ArcadeMaze extends JFrame{
                                     if(p.x == SC[i].x && p.y == SC[i].y && !SC[i].visited)
                                     {
                                         score += 10;
+                                        scorelabel.setText("Score: " + score);
                                         SC[i].visited = true;
                                         JPanel P = new JPanel();
                                         P.setSize(panelSize,panelSize);
@@ -274,8 +304,33 @@ public class ArcadeMaze extends JFrame{
             //System.out.println();
         }
         
-        this.setVisible(true);
+        this.setVisible(true);   
+        
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {                
+                clock.start();
+            }
+        });
+        
+        Timer ti = new Timer();
+        ti.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                clk.setText(hour+":"+min+":"+sec);
+            }
+        },0,1000);
+        
     }   
+    /*public class A extends TimerTask
+    {
+        public void run()
+        {
+            clk.setText(hour+":"+min+":"+sec);
+        }
+    }*/
     
 }
 
