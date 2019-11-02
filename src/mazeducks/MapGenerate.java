@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 
 public class MapGenerate {
-    public static int[][] loadMap(String str, int a){
+    public static int[][] loadMap(int a){
         
   // dimensions of generated maze
   int r = a, c = a;

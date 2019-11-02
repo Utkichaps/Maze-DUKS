@@ -35,7 +35,7 @@ public class ArcadeMaze extends JFrame{
         columns = b;
         score = 0;
         getKey = false;
-        map = loadMap(str,b);
+        map = loadMap(b);
         this.setResizable(false);
         this.setSize((columns*panelSize)+50, (rows*panelSize)+70); //width , height
         this.setTitle("Arcade Maze");
