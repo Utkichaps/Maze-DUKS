@@ -46,7 +46,7 @@ public class ClassicMaze extends JFrame{
     public static boolean upcheck;
     public static int min,sec,hour;
     
-    public ClassicMaze(int tunneltog, int b){
+    public ClassicMaze(int tunneltog, int b, boolean prac){
         this.setFocusable(true);
         rows = b;
         columns = b;
@@ -92,18 +92,22 @@ public class ClassicMaze extends JFrame{
             }  
          });  
         jp.add(qbutton);    
-        
+                
         JLabel timelabel = new JLabel("Time:");
         timelabel.setVisible(true);
         timelabel.setPreferredSize(new Dimension(120,25));
         timelabel.setHorizontalAlignment(JLabel.CENTER);
-        timelabel.setFont(timelabel.getFont().deriveFont (22.0f));
-        jp.add(timelabel);
+        timelabel.setFont(timelabel.getFont().deriveFont (22.0f));  
+        if(!prac)
+            jp.add(timelabel);
         
         clk = new JLabel("0:0:0");
         clk.setVisible(true);
         clk.setFont(clk.getFont().deriveFont (22.0f));
-        jp.add(clk);
+        if(!prac)
+            jp.add(clk);
+        
+        
         
         this.addKeyListener(new KeyListener(){
 
@@ -141,7 +145,10 @@ public class ClassicMaze extends JFrame{
 				
 				if(p.x == endLevelLocx && p.y == endLevelLoc){
                                         clock.stop();
-					JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!\nTime taken: "+hour+":"+min+":"+sec, "End Game", JOptionPane.INFORMATION_MESSAGE);                                        
+                                        if(!prac)
+                                            JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!\nTime taken: "+hour+":"+min+":"+sec, "End Game", JOptionPane.INFORMATION_MESSAGE);
+                                        else
+                                            JOptionPane.showMessageDialog(null, "Congratulations, you've beaten the level!", "End Game", JOptionPane.INFORMATION_MESSAGE);
 					dispose();					
                                         Classic C = new Classic();
                                         C.setVisible(true);
