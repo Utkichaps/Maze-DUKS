@@ -158,7 +158,7 @@ public class TimedMaze extends JFrame{
                                         new TimedMaze("test",b+5);					
 					dispose();					                                       
 				}
-                                if(hour == 0 && min == 0 && sec == 0)
+                                if(hour == 0 && min == 0 && sec == 0 || hour<0)
                                 {
                                         clock.stop();
 					JOptionPane.showMessageDialog(null, "Number of mazes solved: "+count, "End Game", JOptionPane.INFORMATION_MESSAGE);                                        
