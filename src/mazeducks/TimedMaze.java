@@ -1,5 +1,10 @@
 package mazeducks;
 
+import mazeducks.TimedTunnel.TimedTunnelDown;
+import mazeducks.TimedTunnel.TimedTunnelUp;
+import mazeducks.TimedTunnel.TimedTunnelLeft;
+import mazeducks.TimedTunnel.TimedTunnelRight;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,8 +37,14 @@ public class TimedMaze extends JFrame{
     public static int endLevelLocx;
     public static int count;
     TimedPlayer p;
+    public static TimedTunnelRight tr;
+    public static TimedTunnelLeft tl;
+    public static TimedTunnelDown td;
+    public static TimedTunnelUp tu;
     public JLabel clk;
     public TimedTimer clock = new TimedTimer();
+    public static boolean leftcheck;
+    public static boolean upcheck;
     public static int min,sec,hour;
     public TimedMaze(int timelimit)
     {
@@ -45,7 +56,9 @@ public class TimedMaze extends JFrame{
     public TimedMaze(String str, int b){
         this.setFocusable(true);
         rows = b;
-        columns = b;               
+        columns = b;   
+        leftcheck = true;
+        upcheck = true;
         map = loadMap(b);        
         this.setResizable(false);
         this.setSize((columns*panelSize)+50+150, (rows*panelSize)+70); //width , height
@@ -67,16 +80,17 @@ public class TimedMaze extends JFrame{
             public void actionPerformed(ActionEvent e)
             { 
                 int opt;
+                clock.stop();
                 opt = JOptionPane.showConfirmDialog(null,"Are you sure you want to quit?");
                 if(opt == JOptionPane.YES_OPTION)
-                {                    
-                    clock.stop();
+                {                                        
                     Timed C = new Timed();
                     C.setVisible(true);
                     TimedMaze.this.dispose();
                 } 
                 else
                 {
+                    clock.start();
                     qbutton.setFocusable(false);                    
                     TimedMaze.this.setFocusable(true);                    
                 }
@@ -124,7 +138,19 @@ public class TimedMaze extends JFrame{
 				}
 				if(key == KeyEvent.VK_RIGHT){
 					p.moveRight();                                        
-				}                               
+				}
+                                if(p.x == 3 && leftcheck)
+                                {
+                                    tl.setLocation(23,25);
+                                    TimedMaze.this.add(tl,1);
+                                    leftcheck = false;
+                                }
+                                if(p.y == 3 && upcheck)
+                                {
+                                    tu.setLocation(23,25);
+                                    TimedMaze.this.add(tu,1);
+                                    upcheck = false;
+                                }
 				
 				if(p.x == endLevelLocx && p.y == endLevelLoc){
                                         clock.stop();
@@ -167,8 +193,17 @@ public class TimedMaze extends JFrame{
         //Create player & opt.tunnelvision
     	p = new TimedPlayer();
     	p.setVisible(true);        
-
-    	this.add(p);        
+        tr = new TimedTunnelRight();
+        tl = new TimedTunnelLeft();
+        td = new TimedTunnelDown();
+        tu = new TimedTunnelUp();
+        tr.setVisible(true);
+        tl.setVisible(true);
+        td.setVisible(true);
+        tu.setVisible(true);
+    	this.add(p); 
+        this.add(tr);
+        this.add(td);
     	
         //Color map        
         for(int y = 0; y < columns; y++){
@@ -185,7 +220,9 @@ public class TimedMaze extends JFrame{
                     tile.setBackground(Color.WHITE);
                     tile.setWall(false);
                     p.setLocation((x*panelSize)+23, (y*panelSize)+25);
-                    p.y = y;                    
+                    p.y = y;   
+                    tr.setLocation(((x+4)*panelSize)+23, (y*panelSize)+25);  
+                    td.setLocation((x*panelSize)+23,((y+5)*panelSize));
                 }
                 else if(map[x][y] == 3)
                 {
