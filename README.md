@@ -24,14 +24,14 @@ Netbeans is used to create the Project so it can directly be run when using Netb
 
 ## Screenshots
 
-The classic mode with tunnel vision:
+The classic mode with tunnel vision:    
 <img src="images/mazeduks.gif" alt="drawing" width="300"/>
 
-The classic mode:
+The classic mode:    
 <img src="images/classic.png" alt="drawing" width="300"/>
 
-The arcade mode:
+The arcade mode:    
 <img src="images/arcade.png" alt="drawing" width="300"/>
 
-The timed mode with tunnel vision:
+The timed mode with tunnel vision:    
 <img src="images/timed.png" alt="drawing" width="300"/>
